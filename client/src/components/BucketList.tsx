@@ -2,7 +2,7 @@ import { Flex, Spinner, Stack, Text } from "@chakra-ui/react";
 
 import BucketListItem from "./BucketListItem";
 import { useQuery } from "@tanstack/react-query";
-import BASE_URL from "../App";
+import {BASE_URL} from "../App";
 
 export type Bucket = {
 	_id: number;
@@ -15,7 +15,7 @@ const BucketList = () => {
 		queryKey: ["bucketlists"],
 		queryFn: async () => {
 			try {
-				const res = await fetch("http://localhost:4000/api");
+				const res = await fetch(BASE_URL);
 				const data = await res.json();
 
 				if (!res.ok) {
@@ -36,10 +36,10 @@ const BucketList = () => {
 				fontWeight={"bold"}
 				textAlign={"center"}
 				my={2}
-				bgGradient='linear(to-l, #0b85f8, #00ffff)'
-				bgClip='text'
+				color={"#78ddf9"}
+				// bgClip='text'
 			>
-				Today's Tasks
+				My Bucketlist
 			</Text>
 			{isLoading && (
 				<Flex justifyContent={"center"} my={4}>

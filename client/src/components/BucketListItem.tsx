@@ -3,7 +3,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import type { Bucket } from "./BucketList";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import BASE_URL from "../App";
+import {BASE_URL} from "../App";
 
 const BucketListItem = ({ bucketListItem }: { bucketListItem: Bucket }) => {
 	const queryClient = useQueryClient();
@@ -13,8 +13,8 @@ const BucketListItem = ({ bucketListItem }: { bucketListItem: Bucket }) => {
 		mutationFn: async () => {
 			if (bucketListItem.completed) return alert("Bucket List Item is already completed");
 			try {
-				const res = await fetch(BASE_URL + `/bucket-list/${bucketListItem._id}`, {
-					method: "PATCH",
+				const res = await fetch(BASE_URL + `/bucketlist/completed/${bucketListItem._id}`, {
+					method: "PUT",
 				});
 				const data = await res.json();
 				if (!res.ok) {
@@ -26,7 +26,7 @@ const BucketListItem = ({ bucketListItem }: { bucketListItem: Bucket }) => {
 			}
 		},
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["todos"] });
+			queryClient.invalidateQueries({ queryKey: ["bucketlists"] });
 		},
 	});
 
